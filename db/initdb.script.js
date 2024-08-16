@@ -5,7 +5,7 @@ const { Client } = require("pg");
 const SQL = `
 CREATE TABLE IF NOT EXISTS categories (
     id INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
-    categoryName text
+    categoryname text
 );
 
 CREATE TABLE IF NOT EXISTS items (

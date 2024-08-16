@@ -2,6 +2,7 @@ require('dotenv').config();
 var express = require('express');
 const path = require('path');
 const itemsRouter = require('./routers/itemsRouter');
+const categoriesRouter = require('./routers/categoriesRouter');
 
 var app = express();
 
@@ -11,6 +12,7 @@ app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
 
 app.use('/items', itemsRouter);
+app.use('/categories', categoriesRouter);
 
 app.use((err, req, res, next) => {
     console.error(err.stack);
