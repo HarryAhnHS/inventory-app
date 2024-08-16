@@ -4,4 +4,7 @@ const categoriesRouter = Router();
 
 categoriesRouter.get('/', categoriesController.allCategoriesGet);
 
+categoriesRouter.get('/create', categoriesController.createCategoryGet);
+categoriesRouter.post('/create', categoriesController.createCategoryPost);
+
 module.exports = categoriesRouter;

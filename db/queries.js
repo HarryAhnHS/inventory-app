@@ -5,7 +5,7 @@ module.exports = {
         const { rows } = await pool.query('SELECT * FROM items');
         return rows;
     },
-    
+
     insertItem: async (body) => {
         const { name, brand, price, categoryId } = body;
 
@@ -26,5 +26,21 @@ module.exports = {
     allCategoriesGet: async () => {
         const { rows } = await pool.query('SELECT * FROM categories');
         return rows;
+    },
+    insertCategory: async(body) => {
+        const { categoryname } = body;
+
+        const query = `
+            INSERT INTO categories (categoryname) 
+            VALUES ($1)
+        `
+        try {
+            await pool.query(query, [categoryname]);
+            console.log(`Category ${categoryname} created successfully`);
+        }
+        catch {
+            console.error(`Error inserting category ${categoryname}: `, error);
+            throw error; // Rethrow error for handling at a higher level
+        }
     }
 }

@@ -6,7 +6,10 @@
     <title>Grocery Store Inventory</title>
 </head>
 <body>
+    <%-include("./partials/nav.ejs")%>
     <h1>Inventory Items</h1>
+
+    <a href="/items/create">Add new item</a>
 
     <div>
         <% locals.items.forEach(item => { %>
