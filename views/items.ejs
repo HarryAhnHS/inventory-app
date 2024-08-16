@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grocery Store Inventory</title>
+</head>
+<body>
+    <h1>Inventory Items</h1>
+
+    <div>
+        <% locals.items.forEach(item => { %>
+            <div>
+                <h2><%= item.name %></h2>
+                <p><strong>Category ID:</strong> <%= item.categoryid %></p>
+                <p><strong>Brand:</strong> <%= item.brand %></p>
+                <p><strong>Price:</strong> $<%= item.price.toFixed(2) %></p>
+            </div>
+            <hr>
+        <% }); %>
+    </div>
+</body>
+</html>
