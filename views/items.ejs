@@ -19,6 +19,9 @@
                 <p><strong>Brand:</strong> <%= item.brand %></p>
                 <p><strong>Price:</strong> $<%= item.price.toFixed(2) %></p>
             </div>
+            <div>
+                <a href="/items/update/<%=item.id%>">Edit</a>
+            </div>
         <% }); %>
     </div>
 </body>

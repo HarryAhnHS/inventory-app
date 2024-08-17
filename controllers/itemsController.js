@@ -13,7 +13,7 @@ const validateItem = [
       .isFloat({ gt: 0 }).withMessage('Price must be a positive number.')
       .toFloat(),
   
-    body('categoryId')
+    body('categoryid')
       .notEmpty().withMessage('Category must be selected.')
   ];
 
@@ -36,6 +36,30 @@ module.exports = {
             })
         }
         await db.insertItem(req.body);
+        res.redirect('/items');
+    }],
+    editItemGet: async (req, res) => {
+        const itemToUpdate = await db.itemGet(req.params.id);
+        const allCategories = await db.allCategoriesGet();
+        res.render('updateItemsForm', {
+            categories: allCategories,
+            item: itemToUpdate,
+        });
+    },
+    editItemPost:[validateItem, async (req, res) => {
+        console.log("post");
+        const itemToUpdate = await db.itemGet(req.params.id);
+        const allCategories = await db.allCategoriesGet();
+
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            return res.status(400).render('updateItemsForm', {
+                categories: allCategories,
+                item: itemToUpdate,
+                errors: errors.array(),
+            })
+        }
+        await db.updateItem(req.params.id, req.body);
         res.redirect('/items');
     }]
 }

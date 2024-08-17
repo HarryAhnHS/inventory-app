@@ -26,5 +26,23 @@ module.exports = {
         }
         await db.insertCategory(req.body);
         res.redirect('/categories');
-    }]
+    }],
+    editCategoryGet: async (req, res) => {
+        const categoryToUpdate = await db.categoryGet(req.params.id);
+        res.render('updateCategoriesForm', {
+            category: categoryToUpdate,
+        });
+    },
+    editCategoryPost: [validateCategory, async (req, res) => {
+        const categoryToUpdate = db.categoryGet(req.params.id);
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            return res.status(400).render('updateCategoriesForm', {
+                errors: errors.array(),
+                category: categoryToUpdate,
+            })
+        }
+        await db.updateCategory(req.params.id, req.body);
+        res.redirect('/categories');
+    }],
 }

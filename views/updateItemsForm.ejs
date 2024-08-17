@@ -8,28 +8,29 @@
 <body>
     <%-include("./partials/nav.ejs")%>
     <h1>Add new item</h1>
-
     <div>
         <div>
             <%- include('./partials/errors.ejs') %>
         </div>
         <div>
-            <form action="/items/create" method="POST">
+            <form action="/items/update/<%= item[0].id %>" method="POST">
                 <label for="name">Name</label>
-                    <input name="name" type="text" required/>
+                    <input name="name" type="text" value="<%= item[0].name %>" required/>
                 <label for="brand">Brand</label>
-                    <input name="brand" type="text" required/>
+                    <input name="brand" type="text" value="<%= item[0].brand %>" required/>
                 <label for="price">Price</label>
-                    <input name="price" type="number" required/>
+                    <input name="price" type="number" value="<%= item[0].price %>" required/>
                 <label for="categoryId">Select Category:</label>
                     <select name="categoryid" id="category">
                         <% categories.forEach((category) => { %>
-                            <option value="<%= category.id %>">
+                            <option value="<%= category.id %>"
+                                <% if (category.id == item[0].categoryid) { %> selected <% } %>
+                            >
                                 <%= category.categoryname %>
                             </option>
                         <% }); %>
                     </select>
-                <button type="submit">Add</button>
+                <button type="submit">Edit</button>
             </form>
         </div>
     </div>

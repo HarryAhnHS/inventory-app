@@ -8,8 +8,14 @@ var app = express();
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'public')))
+app.use(express.json()); // For parsing application/json
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
+
+app.use((req, res, next) => {
+    console.log(`Received ${req.method} request to ${req.url}`);
+    next();
+});
 
 app.use('/items', itemsRouter);
 app.use('/categories', categoriesRouter);

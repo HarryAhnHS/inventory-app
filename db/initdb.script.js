@@ -10,7 +10,7 @@ CREATE TABLE IF NOT EXISTS categories (
 
 CREATE TABLE IF NOT EXISTS items (
     id INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
-    categoryId INTEGER REFERENCES categories(id) ON DELETE CASCADE,
+    categoryid INTEGER REFERENCES categories(id) ON DELETE CASCADE,
     name text,
     brand text,
     price float
@@ -24,7 +24,7 @@ VALUES
     ('Snacks'),
     ('Household Items');
 
-INSERT INTO items (categoryId, name, brand, price)
+INSERT INTO items (categoryid, name, brand, price)
 VALUES
     (1, 'Apple', 'Brand A', 0.99),
     (1, 'Banana', 'Brand B', 0.49),
