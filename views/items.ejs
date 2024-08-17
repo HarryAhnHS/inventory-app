@@ -26,6 +26,30 @@
             </form>
         </div>
     </div>
+    <div>
+        <form action="/items" method="get">
+            <fieldset>
+                <legend>Filter by category:</legend>
+                <% categories.forEach((category) => { %>
+                    <div>
+                        <input 
+                            type="checkbox" 
+                            name="categories" 
+                            value="<%= category.id %>" 
+                            id="category-<%= category.id %>" 
+                            <% if (selectedCategories && selectedCategories.includes(category.id.toString())) { %> 
+                                checked 
+                            <% } %> 
+                        />
+                        <label for="category-<%= category.id %>">
+                            <%= category.categoryname %>
+                        </label>
+                    </div>
+                <% }); %>
+                <button type="submit">Apply filters</button>
+            </fieldset>
+        </form>
+    </div>
     <div class="content item-container">
         <% locals.items.forEach(item => { %>
             <div class="item">

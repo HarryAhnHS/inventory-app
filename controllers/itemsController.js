@@ -19,14 +19,32 @@ const validateItem = [
   ];
 
 module.exports = {
-    allItemsGet: async (req, res) => {
-        const allItems = await db.allItemsGet();
-        res.render('items', {items: allItems, searchTerm: ''});
+    fetchItemsGet: async (req, res) => {
+        const allCategories = await db.allCategoriesGet();
+        const selectedCategories = req.query.categories || [];
+        // Edge case - handle single categoryid selection
+        const categoryIds = Array.isArray(selectedCategories) ? selectedCategories : [selectedCategories];
+        console.log(categoryIds);
+
+        const items = await db.fetchItemsGet(categoryIds);
+
+        res.render('items', {
+            items: items, 
+            categories: allCategories, 
+            selectedCategories: categoryIds,
+            searchTerm: ''
+        });
     },
     searchItemsGet: async (req, res) => {
+        const allCategories = await db.allCategoriesGet();
+
         const searchTerm = req.query.search || '';
         const searchItems = await db.searchItemsGet(searchTerm);
-        res.render('items', {items: searchItems, searchTerm: searchTerm});
+        res.render('items', {
+            items: searchItems, 
+            categories: allCategories, 
+            searchTerm: searchTerm,
+        });
     },
     createItemGet: async (req, res) => {
         const allCategories = await db.allCategoriesGet();

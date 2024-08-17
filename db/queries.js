@@ -1,15 +1,29 @@
 const pool = require('./pool');
 
 module.exports = {
-    allItemsGet: async () => {
-        const query = `
-            SELECT items.*, categories.categoryname 
-            FROM items 
-            JOIN categories ON items.categoryid = categories.id
-            ORDER BY items.id
-        `
-        const { rows } = await pool.query(query);
-        return rows;
+    fetchItemsGet: async (filters) => {
+        if (filters.length === 0) {
+            // No filters, return all
+            const query = `
+                SELECT items.*, categories.categoryname 
+                FROM items 
+                JOIN categories ON items.categoryid = categories.id
+                ORDER BY items.id
+            `
+            const { rows } = await pool.query(query);
+            return rows;
+        }
+        else {
+            const query = `
+                SELECT items.*, categories.categoryname 
+                FROM items 
+                JOIN categories ON items.categoryid = categories.id
+                WHERE items.categoryid = ANY($1::int[])
+                ORDER BY items.id
+            `
+            const { rows } = await pool.query(query, [filters]);
+            return rows;
+        }
     },
     searchItemsGet: async (string) => {
         const query = `
