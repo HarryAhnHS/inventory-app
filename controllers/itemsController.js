@@ -61,5 +61,9 @@ module.exports = {
         }
         await db.updateItem(req.params.id, req.body);
         res.redirect('/items');
-    }]
+    }],
+    deleteItemPost: async (req, res) => {
+        await db.deleteItem(req);
+        res.redirect('/items');
+    },
 }
