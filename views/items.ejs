@@ -21,6 +21,11 @@
             </div>
             <div>
                 <a href="/items/update/<%=item.id%>">Edit</a>
+                <div>
+                    <form action="/items/delete/<%= item.id %>" method="POST">
+                        <button type="submit">Delete</button>
+                    </form>
+                </div>
             </div>
         <% }); %>
     </div>

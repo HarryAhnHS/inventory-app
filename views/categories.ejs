@@ -17,7 +17,10 @@
                 <h2><%= category.categoryname %></h2>
             </div>
             <div>
-                <a href="/categories/update/<%=category.id%>">Edit</a>
+                <a href="/categories/update/<%= category.id %>">Edit</a>
+                <form action="/categories/delete/<%= category.id %>" method="POST">
+                    <button type="submit">Delete</button>
+                </form>
             </div>
         <% }); %>
     </div>

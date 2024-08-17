@@ -39,6 +39,17 @@ module.exports = {
             throw error; // Rethrow error for handling at a higher level
         }
     },
+    deleteItem: async (req) => {
+        try {
+            await pool.query("DELETE FROM items WHERE id=$1", [req.params.id]);
+            console.log(`Item ${req.params.id} deleted successfully`);
+        }
+        
+        catch(error) {
+            console.error(`Error deleting item ${req.params.id}: `, error);
+            throw error; // Rethrow error for handling at a higher level
+        }
+    },
 
 
 
@@ -80,5 +91,16 @@ module.exports = {
             console.error(`Error editing category ${id}: `, error);
             throw error; // Rethrow error for handling at a higher level
         }
-    }
+    },
+    deleteCategory: async (req) => {
+        try {
+            await pool.query("DELETE FROM categories WHERE id=$1", [req.params.id]);
+            console.log(`Category ${req.params.id} deleted successfully`);
+        }
+        
+        catch(error) {
+            console.error(`Error deleting category ${req.params.id}: `, error);
+            throw error; // Rethrow error for handling at a higher level
+        }
+    },
 }

@@ -45,4 +45,8 @@ module.exports = {
         await db.updateCategory(req.params.id, req.body);
         res.redirect('/categories');
     }],
+    deleteCategoryPost: async (req, res) => {
+        await db.deleteCategory(req);
+        res.redirect('/categories');
+    },
 }
