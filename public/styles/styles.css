@@ -1,11 +1,16 @@
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap');
+
 /* Global Styles */
 body {
-    font-family: Arial, sans-serif;
     background-color: #f4f4f4;
     color: #333;
     margin: 0;
     padding: 0;
     line-height: 1.6;
+}
+
+body, input, a, button {
+    font-family: "Manrope", sans-serif;
 }
 
 a {
