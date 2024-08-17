@@ -2,12 +2,23 @@ const pool = require('./pool');
 
 module.exports = {
     allItemsGet: async () => {
-        const { rows } = await pool.query('SELECT * FROM items');
+        const query = `
+            SELECT items.*, categories.categoryname 
+            FROM items 
+            JOIN categories ON items.categoryid = categories.id
+        `
+        const { rows } = await pool.query(query);
         return rows;
     },
 
     itemGet: async (id) => {
-        const { rows } = await pool.query('SELECT * FROM items WHERE id=$1', [id]);
+        const query = `
+            SELECT items.*, categories.categoryname 
+            FROM items 
+            JOIN categories ON items.categoryid = categories.id
+            WHERE items.id=$1
+        `
+        const { rows } = await pool.query(query, [id]);
         return rows;
     },
 
