@@ -4,27 +4,34 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Grocery Store Inventory</title>
+    <link rel="stylesheet" href="/styles/styles.css">
 </head>
 <body>
-    <%-include("./partials/nav.ejs")%>
-    <h1>Inventory Items</h1>
-
-    <a href="/items/create">Add new item</a>
-
-    <div>
+    <div class="navbar">
+        <%-include("./partials/nav.ejs")%>
+    </div>
+    
+    <div class="header">
+        <h1>Inventory Items</h1>
+        <a href="/items/create">Add new item</a>
+    </div>
+    
+    <div class="content item-container">
         <% locals.items.forEach(item => { %>
-            <div>
-                <h2><%= item.name %></h2>
-                <p><strong>Category:</strong> <%= item.categoryname %></p>
-                <p><strong>Brand:</strong> <%= item.brand %></p>
-                <p><strong>Price:</strong> $<%= item.price.toFixed(2) %></p>
-            </div>
-            <div>
-                <a href="/items/update/<%=item.id%>">Edit</a>
-                <div>
-                    <form action="/items/delete/<%= item.id %>" method="POST">
-                        <button type="submit">Delete</button>
-                    </form>
+            <div class="item">
+                <div class="item-content">
+                    <div class="item-title"><%= item.name %></div>
+                    <div class="item-category">Category: <%= item.categoryname %></div>
+                    <div class="item-brand">Brand: <%= item.brand %></div>
+                    <div class="item-price">Price: $<%= item.price.toFixed(2) %></div>
+                </div>
+                <div class="controls">
+                    <a href="/items/update/<%=item.id%>">Edit</a>
+                    <div class="delete-form">
+                        <form action="/items/delete/<%= item.id %>" method="POST">
+                            <button type="submit">Delete</button>
+                        </form>
+                    </div>
                 </div>
             </div>
         <% }); %>

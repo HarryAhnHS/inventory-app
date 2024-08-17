@@ -4,24 +4,33 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Grocery Store Inventory</title>
+    <link rel="stylesheet" href="/styles/styles.css">
 </head>
 <body>
-    <%-include("./partials/nav.ejs")%>
-    <h1>Create a new category</h1>
+    <div class="navbar">
+        <%-include("./partials/nav.ejs")%>
+    </div>
+    
+    <div class="header">
+        <h1>Create a new category</h1>
+    </div>
 
-    <div>
-        <div>
+    <div class="content">
+        <div class="erros">
             <%- include('./partials/errors.ejs') %>
         </div>
-        <div>
+        <div class="form">
             <form action="/categories/create" method="POST">
                 <label for="categoryname">Name</label>
                     <input name="categoryname" type="text" required/>
-                <button type="submit">Create category</button>
+                <button class="create-btn" type="submit">Create category</button>
             </form>
         </div>
     </div>
 
-    <a href="/categories">Return to categories</a>
+    <div class="back-link">
+        <a href="/categories">Return to categories</a>
+    </div>
+    
 </body>
 </html>

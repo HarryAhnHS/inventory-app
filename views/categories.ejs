@@ -4,24 +4,36 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Grocery Store Inventory</title>
+    <link rel="stylesheet" href="/styles/styles.css">
 </head>
 <body>
-    <%-include("./partials/nav.ejs")%>
-    <h1>Categories</h1>
+    <div class="navbar">
+        <%-include("./partials/nav.ejs")%>
+    </div>
+    
+    <div class="header">
+        <h1>Categories</h1>
+        <a href="/categories/create">Create new category</a>
+    </div>
+    
 
-    <a href="/categories/create">Create new category</a>
-
-    <div>
+    <div class="content cat-container">
         <% locals.categories.forEach(category => { %>
-            <div>
-                <h2><%= category.categoryname %></h2>
+            <div class="cat">
+                <div class="cat-content">
+                    <div class="cat-name"><%= category.categoryname %></div>
+                </div>
+                <div class="controls">
+                    <a href="/categories/update/<%= category.id %>">Edit</a>
+                    <div class="delete-form">
+                        <form action="/categories/delete/<%= category.id %>" method="POST">
+                            <button type="submit">Delete</button>
+                        </form>
+                    </div>
+                    
+                </div>
             </div>
-            <div>
-                <a href="/categories/update/<%= category.id %>">Edit</a>
-                <form action="/categories/delete/<%= category.id %>" method="POST">
-                    <button type="submit">Delete</button>
-                </form>
-            </div>
+            
         <% }); %>
     </div>
     

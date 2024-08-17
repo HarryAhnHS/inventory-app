@@ -4,15 +4,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Grocery Store Inventory</title>
+    <link rel="stylesheet" href="/styles/styles.css">
 </head>
 <body>
-    <%-include("./partials/nav.ejs")%>
-    <h1>Add new item</h1>
-    <div>
-        <div>
-            <%- include('./partials/errors.ejs') %>
-        </div>
-        <div>
+    <div class="navbar">
+        <%-include("./partials/nav.ejs")%>
+    </div>
+    
+    <div class="header">
+        <h1>Update Item</h1>
+    </div>
+    <div class="content">
+        <div class="form">
             <form action="/items/update/<%= item[0].id %>" method="POST">
                 <label for="name">Name</label>
                     <input name="name" type="text" value="<%= item[0].name %>" required/>
@@ -30,11 +33,14 @@
                             </option>
                         <% }); %>
                     </select>
-                <button type="submit">Edit</button>
+                <button class="create-btn" type="submit">Edit</button>
             </form>
         </div>
     </div>
 
-    <a href="/items">Return to items</a>
+    <div class="back-link">
+        <a href="/items">Return to items</a>
+    </div>
+
 </body>
 </html>
