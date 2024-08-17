@@ -1,5 +1,6 @@
 const db = require('../db/queries');
 const { body, validationResult } = require('express-validator');
+const { search } = require('../routers/itemsRouter');
 
 const validateItem = [
     body('name')
@@ -20,7 +21,12 @@ const validateItem = [
 module.exports = {
     allItemsGet: async (req, res) => {
         const allItems = await db.allItemsGet();
-        res.render('items', {items: allItems});
+        res.render('items', {items: allItems, searchTerm: ''});
+    },
+    searchItemsGet: async (req, res) => {
+        const searchTerm = req.query.search || '';
+        const searchItems = await db.searchItemsGet(searchTerm);
+        res.render('items', {items: searchItems, searchTerm: searchTerm});
     },
     createItemGet: async (req, res) => {
         const allCategories = await db.allCategoriesGet();

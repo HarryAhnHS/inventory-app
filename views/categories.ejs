@@ -16,6 +16,16 @@
         <a href="/categories/create">Create new category</a>
     </div>
     
+    <div class="topbar">
+        <div class="search">
+            <form action="/categories/search" method="get">
+                <input name="search" type="text"
+                    placeholder="Search for a category here"
+                    value="<%= searchTerm ? searchTerm : '' %>"/>
+                <button type="submit">Search</button>
+            </form>
+        </div>
+    </div>
 
     <div class="content cat-container">
         <% locals.categories.forEach(category => { %>

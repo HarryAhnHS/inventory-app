@@ -16,6 +16,16 @@
         <a href="/items/create">Add new item</a>
     </div>
     
+    <div class="topbar">
+        <div class="search">
+            <form action="/items/search" method="get">
+                <input name="search" type="text"
+                    placeholder="Search for an item here"
+                    value="<%= searchTerm ? searchTerm : '' %>"/>
+                <button type="submit">Search</button>
+            </form>
+        </div>
+    </div>
     <div class="content item-container">
         <% locals.items.forEach(item => { %>
             <div class="item">

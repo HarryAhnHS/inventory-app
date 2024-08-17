@@ -12,7 +12,12 @@ module.exports = {
     allCategoriesGet: async (req, res) => {
         const allCategories = await db.allCategoriesGet();
         console.log(allCategories)
-        res.render('categories', {categories: allCategories});
+        res.render('categories', {categories: allCategories, searchTerm: ''});
+    },
+    searchCategoriesGet: async (req, res) => {
+        const searchTerm = req.query.search || '';
+        const searchCategories = await db.searchCategoriesGet(searchTerm);
+        res.render('categories', {categories: searchCategories, searchTerm: searchTerm});
     },
     createCategoryGet: (req, res) => {
         res.render('categoriesForm');

@@ -6,8 +6,20 @@ module.exports = {
             SELECT items.*, categories.categoryname 
             FROM items 
             JOIN categories ON items.categoryid = categories.id
+            ORDER BY items.id
         `
         const { rows } = await pool.query(query);
+        return rows;
+    },
+    searchItemsGet: async (string) => {
+        const query = `
+            SELECT items.*, categories.categoryname 
+            FROM items 
+            JOIN categories ON items.categoryid = categories.id
+            WHERE items.name ILIKE $1;
+        `;
+        const searchString = `%${string}%`
+        const { rows } = await pool.query(query, [searchString]);
         return rows;
     },
 
@@ -67,6 +79,16 @@ module.exports = {
 
     allCategoriesGet: async () => {
         const { rows } = await pool.query('SELECT * FROM categories');
+        return rows;
+    },
+    searchCategoriesGet: async (string) => {
+        const query = `
+            SELECT * 
+            FROM categories 
+            WHERE categories.categoryname ILIKE $1;
+        `;
+        const searchString = `%${string}%`
+        const { rows } = await pool.query(query, [searchString]);
         return rows;
     },
     

@@ -12,4 +12,6 @@ categoriesRouter.post('/update/:id', categoriesController.editCategoryPost);
 
 categoriesRouter.post('/delete/:id', categoriesController.deleteCategoryPost);
 
+categoriesRouter.get('/search', categoriesController.searchCategoriesGet);
+
 module.exports = categoriesRouter;
