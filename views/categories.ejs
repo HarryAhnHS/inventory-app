@@ -24,13 +24,14 @@
                     <div class="cat-name"><%= category.categoryname %></div>
                 </div>
                 <div class="controls">
-                    <a href="/categories/update/<%= category.id %>">Edit</a>
+                    <div class="edit-form">
+                        <a href="/categories/update/<%= category.id %>">Edit</a>
+                    </div>
                     <div class="delete-form">
                         <form action="/categories/delete/<%= category.id %>" method="POST">
                             <button type="submit">Delete</button>
                         </form>
                     </div>
-                    
                 </div>
             </div>
             

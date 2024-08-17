@@ -15,6 +15,9 @@
         <h1>Update Item</h1>
     </div>
     <div class="content">
+        <div class="errors-container">
+            <%- include('./partials/errors.ejs') %>
+        </div>
         <div class="form">
             <form action="/items/update/<%= item[0].id %>" method="POST">
                 <label for="name">Name</label>
@@ -22,7 +25,7 @@
                 <label for="brand">Brand</label>
                     <input name="brand" type="text" value="<%= item[0].brand %>" required/>
                 <label for="price">Price</label>
-                    <input name="price" type="number" value="<%= item[0].price %>" required/>
+                    <input name="price" type="number" step="any" value="<%= item[0].price %>" required/>
                 <label for="categoryId">Select Category:</label>
                     <select name="categoryid" id="category">
                         <% categories.forEach((category) => { %>
