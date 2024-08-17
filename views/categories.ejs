@@ -14,15 +14,15 @@
     <div class="header">
         <h1>Categories</h1>
         <a href="/categories/create">Create new category</a>
-    </div>
-    
-    <div class="topbar">
-        <div class="search">
-            <form action="/categories/search" method="get">
-                <input name="search" type="text"
-                    placeholder="Search for a category here"
-                    value="<%= searchTerm ? searchTerm : '' %>"/>
-                <button type="submit">Search</button>
+
+        <div class="topbar">
+            <form id="fetchQueries" action="/categories/search" method="get">
+                <div class="query">
+                    <input name="search" type="text"
+                        placeholder="Search for a category here"
+                        value="<%= searchTerm ? searchTerm : '' %>"/>
+                    <button class="fetch-queries-search" type="submit">Search</button>
+                </div>
             </form>
         </div>
     </div>

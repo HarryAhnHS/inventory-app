@@ -24,7 +24,7 @@
                     <input name="name" type="text" value="<%= item[0].name %>" required/>
                 <label for="brand">Brand</label>
                     <input name="brand" type="text" value="<%= item[0].brand %>" required/>
-                <label for="price">Price</label>
+                <label for="price">Price ($USD)</label>
                     <input name="price" type="number" step="0.01" value="<%= item[0].price %>" required/>
                 <label for="categoryId">Select Category:</label>
                     <select name="categoryid" id="category">
@@ -36,7 +36,7 @@
                             </option>
                         <% }); %>
                     </select>
-                <button class="create-btn" type="submit">Edit</button>
+                <button class="create-btn" type="submit">Save changes</button>
             </form>
         </div>
     </div>

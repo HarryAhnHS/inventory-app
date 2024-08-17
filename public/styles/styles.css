@@ -19,8 +19,8 @@ a:hover {
 }
 
 h1 {
+    margin: 0;
     font-size: 2em;
-    margin-bottom: 10px;
     color: #2c3e50;
 }
 
@@ -28,9 +28,8 @@ h1 {
 .navbar {
     background-color: #2c3e50;
     color: #ecf0f1;
-    padding: 10px 0;
+    padding: 15px 0;
     text-align: center;
-    margin-bottom: 20px;
 }
 
 .navbar nav {
@@ -66,20 +65,129 @@ h1 {
 /* Header */
 .header {
     text-align: center;
-    margin-bottom: 20px;
+
+    padding: 20px 0;
 }
 
 .header a {
-    display: inline-block;
     margin-top: 10px;
-    padding: 5px;
-    background-color: #3498db;
+    display: inline-block;
+    padding: 10px 15px;
+    background-color: #2c3e50;
     color: #fff;
     border-radius: 5px;
     transition: background-color 0.3s;
 }
 
 .header a:hover {
+    opacity: 0.8;
+}
+
+/* Topbar Styles */
+.topbar {
+    padding: 20px 20px 0 20px;
+    display: flex;
+    justify-content: center;
+}
+
+.topbar form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 100%;
+    max-width: 1200px;
+
+    position: relative;
+}
+
+.topbar .query {
+    display: flex;
+}
+
+.topbar .query input[type="text"] {
+    padding: 10px;
+    border: 1px solid #bdc3c7;
+    border-radius: 4px;
+    flex: 1;
+}
+
+button.fetch-queries-search {
+    background-color: #3498db;
+    color: #fff;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-left: 10px;
+    font-size: 1rem;
+}
+
+button.fetch-queries-search:hover {
+    opacity: 0.8;
+}
+
+button.filters-dropdown-toggle {
+    background-color: gray;
+    color: #fff;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-left: 10px;
+    font-size: 1rem;
+}
+
+button.filters-dropdown-toggle:hover {
+    opacity: 0.8;
+}
+
+.filters.hidden {
+    display: none;
+}
+
+.filters {
+    position: absolute;
+
+    top: 40px;
+    right: 0px;
+
+    background-color: white;
+    border-radius: 5px;
+
+    padding: 15px;
+
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+
+
+    display: flex;
+    justify-content: center;
+}
+
+.topbar fieldset {
+    border: none;
+    padding: 0;
+    margin: 0;
+}
+
+.topbar legend {
+    font-weight: bold;
+}
+
+.topbar input[type="checkbox"] {
+    margin-right: 5px;
+}
+
+.topbar .filters button {
+    background-color: #3498db;
+    color: #fff;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.topbar .filters button:hover {
     background-color: #2980b9;
 }
 
@@ -91,7 +199,7 @@ h1 {
     background-color: #fff;
     padding: 20px;
     border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
 }
 
 /* Item Container */
@@ -170,16 +278,12 @@ h1 {
     display: block;
     padding: 5px;
     margin: 0;
-    background: none;
     border: none;
-    color: inherit;
+    background-color: transparent;
+    color: white;
     font-size: 1em;
     cursor: pointer;
     text-decoration: none;
-}
-
-.edit-form a:hover, .delete-form button:hover {
-    opacity: 0.8; /* Slight transparency on hover */
 }
 
 

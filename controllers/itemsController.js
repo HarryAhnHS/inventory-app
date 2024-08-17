@@ -20,30 +20,25 @@ const validateItem = [
 
 module.exports = {
     fetchItemsGet: async (req, res) => {
+        // Filter stuff
         const allCategories = await db.allCategoriesGet();
         const selectedCategories = req.query.categories || [];
         // Edge case - handle single categoryid selection
         const categoryIds = Array.isArray(selectedCategories) ? selectedCategories : [selectedCategories];
         console.log(categoryIds);
 
-        const items = await db.fetchItemsGet(categoryIds);
+        // Search stuff
+        const searchTerm = req.query.search || '';
+
+        // Fetch results using both filters and searchTerm
+        const items = await db.fetchItemsGet(categoryIds, searchTerm);
+        console.log(items);
 
         res.render('items', {
             items: items, 
             categories: allCategories, 
             selectedCategories: categoryIds,
-            searchTerm: ''
-        });
-    },
-    searchItemsGet: async (req, res) => {
-        const allCategories = await db.allCategoriesGet();
-
-        const searchTerm = req.query.search || '';
-        const searchItems = await db.searchItemsGet(searchTerm);
-        res.render('items', {
-            items: searchItems, 
-            categories: allCategories, 
-            searchTerm: searchTerm,
+            searchTerm: searchTerm
         });
     },
     createItemGet: async (req, res) => {

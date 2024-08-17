@@ -1,39 +1,31 @@
 const pool = require('./pool');
 
 module.exports = {
-    fetchItemsGet: async (filters) => {
-        if (filters.length === 0) {
-            // No filters, return all
-            const query = `
-                SELECT items.*, categories.categoryname 
-                FROM items 
-                JOIN categories ON items.categoryid = categories.id
-                ORDER BY items.id
-            `
-            const { rows } = await pool.query(query);
-            return rows;
-        }
-        else {
-            const query = `
-                SELECT items.*, categories.categoryname 
-                FROM items 
-                JOIN categories ON items.categoryid = categories.id
-                WHERE items.categoryid = ANY($1::int[])
-                ORDER BY items.id
-            `
-            const { rows } = await pool.query(query, [filters]);
-            return rows;
-        }
-    },
-    searchItemsGet: async (string) => {
-        const query = `
+    fetchItemsGet: async (filters = [], searchTerm = '') => {
+        let query = `
             SELECT items.*, categories.categoryname 
             FROM items 
             JOIN categories ON items.categoryid = categories.id
-            WHERE items.name ILIKE $1;
+            WHERE 1=1
         `;
-        const searchString = `%${string}%`
-        const { rows } = await pool.query(query, [searchString]);
+        let params = [];
+        let paramIndex = 1;
+    
+        // Add filter condition if filters are provided
+        if (filters.length > 0) {
+            query += ` AND items.categoryid = ANY($${paramIndex++}::int[])`;
+            params.push(filters);
+        }
+    
+        // Add search condition if searchTerm is provided
+        if (searchTerm) {
+            query += ` AND items.name ILIKE $${paramIndex}`;
+            params.push(`%${searchTerm}%`);
+        }
+    
+        query += ` ORDER BY items.id`;
+    
+        const { rows } = await pool.query(query, params);
         return rows;
     },
 

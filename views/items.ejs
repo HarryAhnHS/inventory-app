@@ -14,63 +14,75 @@
     <div class="header">
         <h1>Inventory Items</h1>
         <a href="/items/create">Add new item</a>
-    </div>
-    
-    <div class="topbar">
-        <div class="search">
-            <form action="/items/search" method="get">
-                <input name="search" type="text"
+
+        <div class="topbar">
+            <form id="fetchQueries" action="/items" method="get">
+                <div class="query">
+                    <input name="search" type="text"
                     placeholder="Search for an item here"
                     value="<%= searchTerm ? searchTerm : '' %>"/>
-                <button type="submit">Search</button>
+                    <button class="fetch-queries-search" type="submit">Search</button>
+                    <button class="filters-dropdown-toggle" type="button" onclick=toggleFilterDisplay()>Filters</button>
+                </div>
+    
+                <div class="filters hidden">
+                    <fieldset class="fetch-queries-filters">
+                        <legend>Filter by category:</legend>
+                        <% categories.forEach((category) => { %>
+                            <div>
+                                <input 
+                                    type="checkbox" 
+                                    name="categories" 
+                                    value="<%= category.id %>" 
+                                    id="category-<%= category.id %>" 
+                                    <% if (selectedCategories && selectedCategories.includes(category.id.toString())) { %> 
+                                        checked 
+                                    <% } %> 
+                                />
+                                <label for="category-<%= category.id %>">
+                                    <%= category.categoryname %>
+                                </label>
+                            </div>
+                        <% }); %>
+                        <button class="fetch-queries-apply-filters" type="submit">Apply filters</button>
+                    </fieldset>
+                </div>
             </form>
         </div>
     </div>
-    <div>
-        <form action="/items" method="get">
-            <fieldset>
-                <legend>Filter by category:</legend>
-                <% categories.forEach((category) => { %>
-                    <div>
-                        <input 
-                            type="checkbox" 
-                            name="categories" 
-                            value="<%= category.id %>" 
-                            id="category-<%= category.id %>" 
-                            <% if (selectedCategories && selectedCategories.includes(category.id.toString())) { %> 
-                                checked 
-                            <% } %> 
-                        />
-                        <label for="category-<%= category.id %>">
-                            <%= category.categoryname %>
-                        </label>
-                    </div>
-                <% }); %>
-                <button type="submit">Apply filters</button>
-            </fieldset>
-        </form>
-    </div>
     <div class="content item-container">
-        <% locals.items.forEach(item => { %>
-            <div class="item">
-                <div class="item-content">
-                    <div class="item-title"><%= item.name %></div>
-                    <div class="item-category">Category: <%= item.categoryname %></div>
-                    <div class="item-brand">Brand: <%= item.brand %></div>
-                    <div class="item-price">Price: $<%= item.price.toFixed(2) %></div>
-                </div>
-                <div class="controls">
-                    <div class="edit-form">
-                        <a href="/items/update/<%=item.id%>">Edit</a>
+        <% if (locals.items.length === 0) { %>
+            <p class="no-items-message">No items found. Please try a different search or filter.</p>
+        <% } else { %>
+            <% locals.items.forEach(item => { %>
+                <div class="item">
+                    <div class="item-content">
+                        <div class="item-title"><%= item.name %></div>
+                        <div class="item-category">Category: <%= item.categoryname %></div>
+                        <div class="item-brand">Brand: <%= item.brand %></div>
+                        <div class="item-price">Price: $<%= item.price.toFixed(2) %></div>
                     </div>
-                    <div class="delete-form">
-                        <form action="/items/delete/<%= item.id %>" method="POST">
-                            <button type="submit">Delete</button>
-                        </form>
+                    <div class="controls">
+                        <div class="edit-form">
+                            <a href="/items/update/<%=item.id%>">Edit</a>
+                        </div>
+                        <div class="delete-form">
+                            <form action="/items/delete/<%= item.id %>" method="POST">
+                                <button type="submit">Delete</button>
+                            </form>
+                        </div>
                     </div>
                 </div>
-            </div>
-        <% }); %>
-    </div>
+            <% }); %>
+        <% } %>
+    </div>    
+
+    <script>
+        function toggleFilterDisplay() {
+            // Get the filters div
+            const filtersDiv = document.querySelector('.filters');
+            filtersDiv.classList.toggle('hidden');
+        };
+    </script>
 </body>
 </html>
